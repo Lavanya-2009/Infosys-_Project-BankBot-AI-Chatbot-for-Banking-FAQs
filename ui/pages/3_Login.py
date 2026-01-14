@@ -190,147 +190,204 @@ st.markdown(f"""
 <style>
 header, footer {{ visibility: hidden; }}
 
-/* APP BACKGROUND WITH ANIMATED GRADIENT + BLOBS */
+/* FULL-PAGE BACKGROUND WITH DARK OVERLAY (LIKE REFERENCE DASHBOARD) */
 .stApp {{
-    background:
-        radial-gradient(circle at 0% 0%, rgba(79,70,229,0.16) 0, transparent 55%),
-        radial-gradient(circle at 100% 0%, rgba(236,72,153,0.18) 0, transparent 55%),
-        radial-gradient(circle at 0% 100%, rgba(34,211,238,0.16) 0, transparent 55%),
-        {BG};
+    background-image:
+        linear-gradient(115deg, rgba(15,23,42,0.95), rgba(30,64,175,0.75), rgba(124,58,237,0.8)),
+        url("https://tse2.mm.bing.net/th/id/OIP.90qlAsgN-sKqOBFHh0RVKAHaEK?pid=Api&P=0&h=180");
+    background-size: cover;
+    background-position: center;
     background-attachment: fixed;
     transition: background 0.4s ease, color 0.4s ease;
-    animation: bg-pan 26s ease-in-out infinite alternate;
 }}
 
-@keyframes bg-pan {{
-    0%   {{ background-position: 0% 0%, 100% 0%, 0% 100%, 0% 0%; }}
-    50%  {{ background-position: 20% 10%, 80% 0%, 0% 80%, 50% 0%; }}
-    100% {{ background-position: 0% 20%, 100% 0%, 20% 100%, 100% 0%; }}
+/* TOP NAVBAR (GLASS, BLURRED) */
+.top-nav {{
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 64px;
+    padding: 0 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(120deg, rgba(15,23,42,0.88), rgba(30,64,175,0.8));
+    backdrop-filter: blur(18px);
+    box-shadow: 0 18px 45px rgba(15,23,42,0.9);
+    border-bottom: 1px solid rgba(148,163,184,0.55);
+    z-index: 1000;
 }}
 
-/* BRAND / TITLE AREA */
-.identity {{
-    text-align:center;
-    margin-bottom:22px;
-    animation: float 4s ease-in-out infinite;
+.nav-left {{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #e5e7eb;
+    font-weight: 700;
 }}
 
-@keyframes float {{
-    0%   {{ transform: translateY(0); }}
-    50%  {{ transform: translateY(-10px); }}
-    100% {{ transform: translateY(0); }}
+.nav-logo {{
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    background: radial-gradient(circle at 30% 0%, #fde68a, #f97316);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 0 3px rgba(15,23,42,0.6);
+    font-size: 18px;
 }}
 
-.bankbot {{
-    display:inline-block;
-    padding:14px 38px;
-    border-radius:999px;
+.nav-links {{
+    display: flex;
+    gap: 28px;
+    color: #e5e7eb;
+    font-size: 0.95rem;
+    opacity: 0.9;
+}}
+
+.nav-link-active {{
+    padding: 6px 16px;
+    border-radius: 999px;
+    background: rgba(15,23,42,0.7);
+    border: 1px solid rgba(129,140,248,0.8);
+}}
+
+.nav-cta {{
+    padding: 7px 18px;
+    border-radius: 999px;
     background: linear-gradient(135deg, {ACCENT_1}, {ACCENT_2});
-    color:white;
-    font-weight:900;
-    letter-spacing:0.08em;
-    box-shadow: 0 24px 50px rgba(15,23,42,0.45);
-    text-transform: uppercase;
-    font-size:0.9rem;
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 14px 30px rgba(15,23,42,0.7);
 }}
 
-/* LOGIN CARD – GLASS + OVERLAY */
+/* PAGE CONTENT WRAPPER (PUSHED BELOW NAVBAR) */
+.page-shell {{
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 96px 1.75rem 56px 1.75rem;
+}}
+
+/* HERO SECTION – TITLE ABOVE CARD */
+.hero {{
+    text-align: center;
+    color: #e5e7eb;
+    margin-bottom: 32px;
+}}
+
+.hero-title {{
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-shadow: 0 18px 40px rgba(15,23,42,0.95);
+}}
+
+.hero-subtitle {{
+    margin-top: 8px;
+    font-size: 0.98rem;
+    color: rgba(209,213,219,0.9);
+}}
+
+/* LOGIN CARD – GLASS PANEL LIKE DASHBOARD TILES */
 .login-card {{
-    background:{CARD};
-    backdrop-filter: blur(22px);
-    padding:2.6rem 2.7rem;
-    border-radius:22px;
-    max-width:440px;
-    margin:10px auto 0 auto;
-    box-shadow:0 32px 80px rgba(15,23,42,0.55);
-    border:1px solid rgba(148,163,184,0.5);
+    background: radial-gradient(circle at 0 0, rgba(148,163,184,0.22), transparent 60%),
+                radial-gradient(circle at 100% 100%, rgba(56,189,248,0.16), transparent 55%),
+                rgba(15,23,42,0.86);
+    backdrop-filter: blur(20px) saturate(1.1);
+    padding: 2.4rem 2.6rem;
+    border-radius: 24px;
+    max-width: 480px;
+    margin: 0 auto;
+    box-shadow: 0 26px 70px rgba(15,23,42,0.95);
+    border: 1.5px solid rgba(148,163,184,0.85);
     animation: card-in 0.7s ease-out;
     position: relative;
     overflow: hidden;
 }}
 
 .login-card::before {{
-    content:"";
-    position:absolute;
-    inset:-40%;
+    content: "";
+    position: absolute;
+    inset: -40%;
     background:
-        radial-gradient(circle at 0% 0%, rgba(255,255,255,0.22), transparent 60%),
-        radial-gradient(circle at 100% 100%, rgba(96,165,250,0.16), transparent 60%);
-    opacity:0.75;
-    pointer-events:none;
+        radial-gradient(circle at 0% 0%, rgba(255,255,255,0.16), transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(129,140,248,0.16), transparent 60%);
+    opacity: 0.8;
+    pointer-events: none;
 }}
 
 @keyframes card-in {{
-    from {{ opacity:0; transform: translateY(30px) scale(0.98); }}
-    to   {{ opacity:1; transform: translateY(0)    scale(1); }}
+    from {{ opacity: 0; transform: translateY(30px) scale(0.98); }}
+    to   {{ opacity: 1; transform: translateY(0)    scale(1); }}
 }}
 
 h2 {{
-    color:{TEXT};
-    text-align:center;
-    margin-bottom:0.35rem;
+    color: {TEXT};
+    text-align: center;
+    margin-bottom: 0.4rem;
 }}
 
 .login-subtitle {{
     color: rgba(148,163,184,0.95);
-    text-align:center;
-    font-size:0.9rem;
-    margin-bottom:1.6rem;
+    text-align: center;
+    font-size: 0.9rem;
+    margin-bottom: 1.6rem;
 }}
 
 /* INPUTS */
 label {{
-    color:{TEXT} !important;
-    font-weight:600;
+    color: {TEXT} !important;
+    font-weight: 600;
 }}
 
 .stTextInput > div > div,
 .stSelectbox > div {{
     background-color: rgba(255,255,255,0.96);
-    border-radius:14px;
-    border:1px solid rgba(209,213,219,0.9);
-    box-shadow: 0 8px 22px rgba(15,23,42,0.14);
+    border-radius: 14px;
+    border: 1px solid rgba(209,213,219,0.9);
+    box-shadow: 0 8px 22px rgba(15,23,42,0.4);
 }}
 
 .stTextInput > div > div:focus-within,
 .stSelectbox > div:focus-within {{
-    border-color:{ACCENT_1};
-    box-shadow:0 0 0 1px {ACCENT_1}, 0 10px 28px rgba(79,70,229,0.3);
+    border-color: {ACCENT_1};
+    box-shadow: 0 0 0 1px {ACCENT_1}, 0 10px 28px rgba(79,70,229,0.5);
 }}
 
 /* BUTTON */
 .stButton button {{
     background: linear-gradient(120deg, {ACCENT_1}, {ACCENT_2});
-    color:white;
-    font-weight:800;
-    border-radius:999px;
-    padding:0.9rem;
-    font-size:1.02rem;
-    box-shadow:0 18px 40px rgba(15,23,42,0.5);
-    border:none;
+    color: white;
+    font-weight: 800;
+    border-radius: 999px;
+    padding: 0.9rem;
+    font-size: 1.02rem;
+    box-shadow: 0 18px 40px rgba(15,23,42,0.9);
+    border: none;
     transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
 }}
 
 .stButton button:hover {{
     transform: translateY(-2px);
-    box-shadow:0 24px 60px rgba(15,23,42,0.6);
-    filter:brightness(1.05);
+    box-shadow: 0 24px 60px rgba(15,23,42,1);
+    filter: brightness(1.05);
 }}
 
 .stButton button:active {{
     transform: translateY(0);
-    box-shadow:0 12px 30px rgba(15,23,42,0.5);
+    box-shadow: 0 12px 30px rgba(15,23,42,0.9);
 }}
 
 /* INLINE LOADER */
 .spinner {{
-    width:45px;
-    height:45px;
-    border:5px solid rgba(255,255,255,0.3);
-    border-top:5px solid {ACCENT_2};
-    border-radius:50%;
+    width: 45px;
+    height: 45px;
+    border: 5px solid rgba(255,255,255,0.3);
+    border-top: 5px solid {ACCENT_2};
+    border-radius: 50%;
     animation: spin 1s linear infinite;
-    margin:18px auto 0 auto;
+    margin: 18px auto 0 auto;
 }}
 
 @keyframes spin {{
@@ -354,13 +411,30 @@ if "user_name" in st.session_state:
 st.toggle("🌙 Dark Mode", key="dark_mode")
 
 # --------------------------------------------------
-# HEADER
+# TOP NAVBAR + HERO (MATCHING REFERENCE STYLE)
 # --------------------------------------------------
-st.markdown("""
-<div class="identity">
-    <div class="bankbot">🔐 BankBot</div>
-</div>
-""", unsafe_allow_html=True)
+# st.markdown(
+#     """
+#     <div class="top-nav">
+#         <div class="nav-left">
+#             <div class="nav-logo">🏦</div>
+#             <div>BankBot AI</div>
+#         </div>
+#         <div class="nav-links">
+#             <div class="nav-link-active">Login</div>
+#             <div>Chatbot</div>
+#             <div>Accounts</div>
+#         </div>
+#         <div class="nav-cta">Need Help?</div>
+#     </div>
+#     <div class="page-shell">
+#         <div class="hero">
+#             <div class="hero-title">Welcome to your BankBot</div>
+#             <div class="hero-subtitle">Securely sign in to manage accounts, cards and your AI assistant.</div>
+#         </div>
+#     """,
+#     unsafe_allow_html=True,
+# )
 
 # --------------------------------------------------
 # LOGIN CARD
@@ -404,5 +478,8 @@ if login:
             st.switch_page("pages/6_Admin.py")
         else:
             st.switch_page("pages/4_Chatbot.py")
+
+# Close wrappers opened for custom layout (login-card + page-shell)
+st.markdown("</div></div>", unsafe_allow_html=True)
 
 st.markdown('</div>', unsafe_allow_html=True)

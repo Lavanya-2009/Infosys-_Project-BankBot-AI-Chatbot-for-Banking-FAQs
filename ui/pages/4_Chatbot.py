@@ -35,6 +35,14 @@ with st.sidebar:
     dark_default = st.session_state.theme == "dark"
     dark_mode = st.toggle("Dark mode", value=dark_default)
     st.session_state.theme = "dark" if dark_mode else "light"
+    st.markdown("---")
+    if st.button("🚪 Logout", use_container_width=True):
+        # Clear relevant session keys
+        for key in ["user_name", "role", "messages"]:
+            if key in st.session_state:
+                del st.session_state[key]
+        # Navigate back to login page
+        st.switch_page("pages/3_Login.py")
 
 
 def _chat_css(theme: str) -> str:
@@ -48,9 +56,14 @@ def _chat_css(theme: str) -> str:
             font-family: 'Inter', sans-serif;
         }
 
-        /* App background with soft gradient (light) */
+        /* App background with soft gradient (light) + banking AI image */
         .stApp {
-            background: radial-gradient(circle at top left, #e2e8f0 0, #f8fafc 40%, #ffffff 100%);
+            background-image:
+                linear-gradient(to bottom right, rgba(226,232,240,0.9), rgba(248,250,252,0.9)),
+                url("https://www.teloz.com/wp-content/uploads/2023/12/dall%C2%B7e-2023-12-30-140151-a-feature-image-depicting-a-banking-ai-chatbot-concept-the-image-should-include-a-modern-sleek-digital-interface-labeled-banking-ai-chatbot-with-a.webp");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
 
         /* Center the chat card nicely */
@@ -61,17 +74,17 @@ def _chat_css(theme: str) -> str:
             min-height: 100vh;
         }
 
-        /* Chat wrapper with soft shadow */
+        /* Chat wrapper with lighter glassmorphism (light) */
         .chat-wrapper {
             max-width: 440px;
             width: 100%;
             margin: 32px auto;
-            background: linear-gradient(135deg, #ffffff, #f9fafb);
+            background: radial-gradient(circle at top left, rgba(255,255,255,0.82), rgba(248,250,252,0.78));
             border-radius: 24px;
-            box-shadow: 0 24px 60px rgba(15,23,42,0.15);
+            box-shadow: 0 24px 60px rgba(15,23,42,0.18);
             overflow: hidden;
-            border: 1px solid rgba(148,163,184,0.45);
-            backdrop-filter: blur(22px);
+            border: 2px solid rgba(148,163,184,0.9);
+            backdrop-filter: blur(26px) saturate(1.2);
         }
 
         /* Header with gradient accent */
@@ -111,12 +124,29 @@ def _chat_css(theme: str) -> str:
             box-shadow: 0 0 10px rgba(34,197,94,0.8);
         }
 
+        /* Small badges under title */
+        .badge-row {
+            display: flex;
+            gap: 6px;
+            margin-top: 6px;
+            flex-wrap: wrap;
+        }
+
+        .badge-chip {
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            background: rgba(15,23,42,0.03);
+            color: #0f172a;
+            border: 1px solid rgba(148,163,184,0.7);
+        }
+
         /* Chat body */
         .chat-body {
             padding: 18px 16px 12px 16px;
             height: 420px;
             overflow-y: auto;
-            background: linear-gradient(180deg, #f8fafc, #e5e7eb);
+            background: linear-gradient(180deg, rgba(248,250,252,0.75), rgba(226,232,240,0.78));
         }
 
         /* Custom scrollbar */
@@ -210,9 +240,14 @@ def _chat_css(theme: str) -> str:
         font-family: 'Inter', sans-serif;
     }
 
-    /* App background with soft gradient */
+    /* App background with soft gradient + banking AI image */
     .stApp {
-        background: radial-gradient(circle at top left, #1e293b 0, #020617 40%, #020617 100%);
+        background-image:
+            radial-gradient(circle at top left, rgba(15,23,42,0.96), rgba(2,6,23,0.98)),
+            url("https://www.teloz.com/wp-content/uploads/2023/12/dall%C2%B7e-2023-12-30-140151-a-feature-image-depicting-a-banking-ai-chatbot-concept-the-image-should-include-a-modern-sleek-digital-interface-labeled-banking-ai-chatbot-with-a.webp");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
     }
 
     /* Center the chat card nicely */
@@ -223,17 +258,17 @@ def _chat_css(theme: str) -> str:
         min-height: 100vh;
     }
 
-    /* Chat wrapper with glassmorphism effect */
+    /* Chat wrapper with lighter glassmorphism effect (dark) */
     .chat-wrapper {
         max-width: 440px;
         width: 100%;
         margin: 32px auto;
-        background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(15,23,42,0.90));
+        background: radial-gradient(circle at top left, rgba(15,23,42,0.78), rgba(15,23,42,0.74));
         border-radius: 24px;
         box-shadow: 0 28px 80px rgba(15,23,42,0.85);
         overflow: hidden;
-        border: 1px solid rgba(148,163,184,0.45);
-        backdrop-filter: blur(22px);
+        border: 2px solid rgba(129,140,248,0.95);
+        backdrop-filter: blur(30px) saturate(1.25);
     }
 
     /* Header with gradient accent */
@@ -273,12 +308,29 @@ def _chat_css(theme: str) -> str:
         box-shadow: 0 0 10px rgba(34,197,94,0.8);
     }
 
+    /* Small badges under title */
+    .badge-row {
+        display: flex;
+        gap: 6px;
+        margin-top: 6px;
+        flex-wrap: wrap;
+    }
+
+    .badge-chip {
+        font-size: 10px;
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: rgba(15,23,42,0.45);
+        color: #e5e7eb;
+        border: 1px solid rgba(129,140,248,0.9);
+    }
+
     /* Chat body */
     .chat-body {
         padding: 18px 16px 12px 16px;
         height: 420px;
         overflow-y: auto;
-        background: linear-gradient(180deg, rgba(15,23,42,0.98), rgba(15,23,42,0.96));
+        background: linear-gradient(180deg, rgba(15,23,42,0.8), rgba(15,23,42,0.9));
     }
 
     /* Custom scrollbar */
@@ -380,19 +432,26 @@ if "messages" not in st.session_state:
 st.markdown("<div class='chat-wrapper'>", unsafe_allow_html=True)
 
 # ---------- HEADER ----------
-st.markdown("""
+display_name = st.session_state.get("user_name", "you")
+
+st.markdown(f"""
 <div class="chat-header">
     <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png">
     <div>
         <div class="header-title">BankBot AI</div>
-        <div class="header-status">We’re online</div>
+        <div class="header-status">Assisting {display_name.title()} securely</div>
+        <div class="badge-row">
+            <span class="badge-chip">24×7 Support</span>
+            <span class="badge-chip">Bank-grade Security</span>
+            <span class="badge-chip">AI Powered</span>
+        </div>
     </div>
     <div class="online-dot"></div>
 </div>
 """, unsafe_allow_html=True)
 
 # ---------- CHAT BODY ----------
-st.markdown("<div class='chat-body'>", unsafe_allow_html=True)
+# st.markdown("<div class='chat-body'>", unsafe_allow_html=True)
 
 for role, msg in st.session_state.messages:
     if role == "user":
@@ -407,7 +466,8 @@ user_input = st.chat_input("Type a message...")
 
 if user_input:
     st.session_state.messages.append(("user", user_input))
-    response = chatbot_response(user_input, st.session_state)
+    with st.spinner("BankBot AI is thinking..."):
+        response = chatbot_response(user_input, st.session_state)
     st.session_state.messages.append(("bot", response))
     st.rerun()
 

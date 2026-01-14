@@ -362,14 +362,23 @@ st.markdown("""
       <div class="nav-logo">🏦</div>
       <div class="nav-title">BankBot AI · Admin Console</div>
     </div>
-    <div class="nav-right">
-      <span class="nav-pill nav-pill-primary">Admin Panel</span>
-      <span class="nav-pill">Model Monitor</span>
-      <span class="nav-pill">v1.0</span>
-    </div>
+        <div class="nav-right">
+            <span class="nav-pill nav-pill-primary">Admin Panel</span>
+            <span class="nav-pill">Model Monitor</span>
+            <span class="nav-pill">v1.0</span>
+        </div>
   </div>
 </div>
 """, unsafe_allow_html=True)
+
+# Logout button aligned with top nav (placed just below, visually near the top)
+logout_col1, logout_col2, logout_col3 = st.columns([4, 1.1, 0.4])
+with logout_col2:
+        if st.button("🚪 Logout", use_container_width=True, key="admin_logout"):
+                for key in ["user_name", "role", "messages"]:
+                        if key in st.session_state:
+                                del st.session_state[key]
+                st.switch_page("pages/3_Login.py")
 
 # --------------------------------------------------
 # LOAD INTENTS

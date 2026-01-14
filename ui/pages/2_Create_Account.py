@@ -1,5 +1,6 @@
 import sys
 import os
+import sqlite3
 import streamlit as st
 
 # ---------- ADD PROJECT ROOT ----------
@@ -10,7 +11,8 @@ if BASE_DIR not in sys.path:
 from database.bank_crud import (
     create_account,
     get_all_users,
-    create_user
+    create_user,
+    get_account,
 )
 
 # ---------------- PAGE CONFIG ----------------
@@ -21,14 +23,13 @@ st.markdown("""
 <style>
 /* ---------- GLOBAL LAYOUT & BACKGROUND ---------- */
 .stApp {
-    /* more vivid animated light gradient */
-    background: radial-gradient(circle at 0% 0%, #e0f2fe 0, transparent 55%),
-                radial-gradient(circle at 100% 0%, #fce7f3 0, transparent 55%),
-                radial-gradient(circle at 0% 100%, #dcfce7 0, transparent 55%),
-                radial-gradient(circle at 100% 100%, #e0e7ff 0, transparent 55%),
-                linear-gradient(135deg, #eff6ff, #ffffff, #e0f2fe, #f5f3ff);
-    background-size: 260% 260%;
-    animation: gradientShift 22s ease-in-out infinite;
+    /* dark overlay + banking image background (matches login aesthetic) */
+    background-image:
+        linear-gradient(115deg, rgba(15,23,42,0.9), rgba(30,64,175,0.78), rgba(124,58,237,0.85)),
+        url("https://tse3.mm.bing.net/th/id/OIP.azxAV4lUf-_ThFxk5b1S3QHaH6?pid=Api&P=0&h=180");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     color: #0f172a;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
@@ -541,19 +542,36 @@ if st.button("Create Account", use_container_width=True):
         st.error("❌ Please enter account password")
         st.stop()
 
+    # ----- PREVENT DUPLICATE ACCOUNT NUMBERS -----
+    existing_account = get_account(acc_no)
+    if existing_account is not None:
+        st.error("❌ This account number already exists. Please use a different account number.")
+        st.stop()
+
     # ----- CREATE USER FIRST -----
     if user_mode == "New User":
-        create_user(final_user, user_password)
+        try:
+            create_user(final_user, user_password)
+        except sqlite3.IntegrityError:
+            st.error("❌ This username already exists. Please choose 'Existing User' or use a different name.")
+            st.stop()
 
     # ----- CREATE ACCOUNT -----
-    create_account(
-        final_user,
-        acc_no,
-        acc_type,
-        balance,
-        account_password
-    )
+    try:
+        create_account(
+            final_user,
+            acc_no,
+            acc_type,
+            balance,
+            account_password,
+        )
+    except sqlite3.IntegrityError:
+        st.error("❌ This account number already exists. Please use a different account number.")
+        st.stop()
+
     st.success("✅ User & Account created successfully")
+    # Navigate to login page after successful creation
+    st.switch_page("pages/3_Login.py")
 st.markdown("</div>", unsafe_allow_html=True)  # close submit-wrapper
 
 st.markdown("</div>", unsafe_allow_html=True)  # close bank-card

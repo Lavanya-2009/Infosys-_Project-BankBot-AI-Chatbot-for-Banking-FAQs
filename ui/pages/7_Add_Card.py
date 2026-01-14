@@ -35,10 +35,13 @@ light_css = """
 header, footer { visibility: hidden; }
 
 .stApp {
-    background: radial-gradient(circle at 0% 0%, #e0f2fe 0, transparent 55%),
-                radial-gradient(circle at 100% 0%, #fee2e2 0, transparent 55%),
-                radial-gradient(circle at 0% 100%, #dcfce7 0, transparent 55%),
-                linear-gradient(135deg, #f3f4f6, #e5e7eb, #ffffff);
+    /* Banking image with a very light dark overlay so content pops */
+    background-image:
+        linear-gradient(120deg, rgba(15,23,42,0.35), rgba(15,23,42,0.55)),
+        url("https://tse1.mm.bing.net/th/id/OIP.QedNCf1lEXNfyokLR_HXLQHaE8?pid=Api&P=0&h=180");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     color: #111827;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
@@ -246,10 +249,13 @@ dark_css = """
 header, footer { visibility: hidden; }
 
 .stApp {
-    background: radial-gradient(circle at 0% 0%, #0f172a 0, transparent 55%),
-                radial-gradient(circle at 100% 0%, #1e293b 0, transparent 55%),
-                radial-gradient(circle at 0% 100%, #0f766e 0, transparent 55%),
-                linear-gradient(135deg, #020617, #0b1120, #020617);
+    /* Same image in dark mode with slightly stronger shade */
+    background-image:
+        linear-gradient(125deg, rgba(15,23,42,0.65), rgba(15,23,42,0.85)),
+        url("https://tse1.mm.bing.net/th/id/OIP.QedNCf1lEXNfyokLR_HXLQHaE8?pid=Api&P=0&h=180");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     color: #e5e7eb;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
@@ -480,7 +486,7 @@ def generate_unique_card_number() -> str:
 # ---------- LOAD ACCOUNTS ----------
 accounts = get_all_users_with_accounts()
 
-st.markdown("<div class='card-shell'>", unsafe_allow_html=True)
+# st.markdown("<div class='card-shell'>", unsafe_allow_html=True)
 
 st.markdown("<div class='page-title'>Issue New Card</div>", unsafe_allow_html=True)
 st.markdown(
@@ -501,7 +507,7 @@ options = {
 left_col, right_col = st.columns([1.1, 1])
 
 with left_col:
-    st.markdown("<div class='section'>", unsafe_allow_html=True)
+    # st.markdown("<div class='section'>", unsafe_allow_html=True)
     st.markdown("<div class='section-title'>Account & Card Details</div>", unsafe_allow_html=True)
 
     selected_label = st.selectbox("Select user account", list(options.keys()))
@@ -550,7 +556,7 @@ with left_col:
     st.markdown("</div>", unsafe_allow_html=True)
 
 with right_col:
-    st.markdown("<div class='section'>", unsafe_allow_html=True)
+    # st.markdown("<div class='section'>", unsafe_allow_html=True)
     st.markdown("<div class='section-title'>Card Preview</div>", unsafe_allow_html=True)
 
     display_number = st.session_state.get("generated_card") or card_number or "0000 0000 0000 0000"

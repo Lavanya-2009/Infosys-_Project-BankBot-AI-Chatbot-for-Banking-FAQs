@@ -16,7 +16,10 @@ from database.security import verify_password
 
 INTENT_THRESHOLD = 0.6
 
-TRANSFER_KEYWORDS = ["transfer", "send", "pay", "give"]
+TRANSFER_KEYWORDS = [
+    "transfer", "ransfer", "tranfer",  # common spellings/typos
+    "send", "pay", "give"
+]
 BALANCE_KEYWORDS = ["balance", "check balance", "account balance"]
 BANKING_KEYWORDS = [
     "balance", "account", "transfer", "send", "pay", "money",
