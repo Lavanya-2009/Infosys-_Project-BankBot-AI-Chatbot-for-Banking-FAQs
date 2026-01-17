@@ -70,7 +70,7 @@ Depending on your implementation, BankBot may use libraries like:
 * `nltk` (text preprocessing)
 * `scikit-learn` (basic ML intent classification if used)
 * `transformers` (LLM integration)
-* `flask` / `streamlit` (optional UI support)
+* `streamlit` (optional UI support)
 * `json` (FAQ/intents storage)
 * `re` (pattern matching)
 
@@ -111,9 +111,9 @@ A typical structure for this project may look like:
     * `faq.json` / `intents.json` → Banking FAQ dataset
   * `models/`
 
-    * `model.pkl` (if ML model is used)
-  * `templates/` (optional)
-  * `static/` (optional)
+    * `model.pkl` 
+  * `templates/` 
+  * `static/` 
   * `README.md`
 
 > The exact structure may vary slightly based on updates in the repository.
@@ -168,7 +168,7 @@ pip install nltk scikit-learn transformers flask
 ### Run using Python
 
 ```bash
-python app.py
+streamlit run app.py
 ```
 
 or
