@@ -1,18 +1,24 @@
 # BankBot – AI Chatbot for Banking FAQs 🤖🏦
 
-
+![Python](https://img.shields.io/badge/Python-3.x-blue.svg)
+![AI/NLP](https://img.shields.io/badge/AI-NLP-success.svg)
+![LLM](https://img.shields.io/badge/LLM-Transformer--based-purple.svg)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen.svg)
+![License](https://img.shields.io/badge/License-MIT-lightgrey.svg)
+![Streamlit](https://img.shields.io/badge/Streamlit-App-red.svg)
 
 ## 📌 Project Description
 
 **BankBot** is an AI-powered banking chatbot designed to assist users by answering common **banking-related FAQs** quickly and efficiently.
-It simulates a real-time support assistant that can respond to customer questions related to banking services such as account queries, card-related help, and general banking information.
+It simulates a real-time support assistant that can respond to customer queries related to banking services such as account support, card-related help, and general banking information.
 
-This project is created as part of an **Infosys Certification / Project Submission**, and it is built to run locally for testing and demonstration purposes.
+This project is created as part of an **Infosys Certification / Project Submission**, and it is built using **Streamlit** for an interactive UI and smooth local execution.
 
 ---
 
 ## ✨ Features
 
+✅ Interactive chatbot UI using **Streamlit**
 ✅ Banking FAQ chatbot experience
 ✅ User-friendly conversation interface
 ✅ Intelligent responses using **AI + NLP** techniques
@@ -44,7 +50,7 @@ BankBot uses NLP concepts to understand user input and generate meaningful respo
 To improve chatbot response quality, prompt engineering can be applied such as:
 
 * Clear role-based instructions (system prompts)
-* Context-aware queries
+* Context-aware prompts
 * Controlled response formatting for professional chatbot replies
 
 ### ✅ LLM-based Text Generation
@@ -65,12 +71,12 @@ BankBot supports integration with **Transformer-based LLMs** for advanced conver
 
 ### ✅ Libraries / Frameworks
 
-Depending on your implementation, BankBot may use libraries like:
+This project may use:
 
+* `streamlit` (interactive chatbot UI)
 * `nltk` (text preprocessing)
-* `scikit-learn` (basic ML intent classification if used)
-* `transformers` (LLM integration)
-* `streamlit` (optional UI support)
+* `scikit-learn` (optional: intent classification)
+* `transformers` (optional: LLM integration)
 * `json` (FAQ/intents storage)
 * `re` (pattern matching)
 
@@ -88,13 +94,13 @@ This project supports **Transformer-based LLMs**, such as:
 
 * GPT-style LLMs
 * BERT-based models (for classification / retrieval)
-* Other Transformer-based chat generation models
+* Other transformer-based text generation models
 
 ✅ **Configurable LLM Support**
 The chatbot is designed so that the **LLM can be changed or upgraded** easily based on availability and use case:
 
 * Open-source models (via Hugging Face Transformers)
-* API-based models (configurable through environment variables / configuration files)
+* API-based models (configurable through environment variables / config files)
 
 ---
 
@@ -102,21 +108,17 @@ The chatbot is designed so that the **LLM can be changed or upgraded** easily ba
 
 A typical structure for this project may look like:
 
-* `BankBot/`
+* `app.py` → Streamlit chatbot application
+* `requirements.txt` → Required dependencies
+* `data/`
 
-  * `app.py` / `main.py` → Main chatbot execution file
-  * `requirements.txt` → Required dependencies
-  * `data/`
+  * `faq.json` / `intents.json` → Banking FAQ dataset
+* `models/`
 
-    * `faq.json` / `intents.json` → Banking FAQ dataset
-  * `models/`
+  * `model.pkl` (optional ML model)
+* `README.md`
 
-    * `model.pkl` 
-  * `templates/` 
-  * `static/` 
-  * `README.md`
-
-> The exact structure may vary slightly based on updates in the repository.
+> The exact structure may vary slightly depending on updates in the repository.
 
 ---
 
@@ -155,37 +157,25 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-If `requirements.txt` is not available, install common libraries manually:
+If `requirements.txt` is not available, you can install manually:
 
 ```bash
-pip install nltk scikit-learn transformers flask
+pip install streamlit nltk scikit-learn transformers
 ```
 
 ---
 
-## ▶️ How to Run the Project Locally
+## ▶️ How to Run the Project Locally (Streamlit)
 
-### Run using Python
+Run the Streamlit app using:
 
 ```bash
 streamlit run app.py
 ```
 
-or
+After running, open the link shown in the terminal (usually):
 
-```bash
-python main.py
-```
-
-If the project uses Flask:
-
-```bash
-python app.py
-```
-
-Then open your browser and go to:
-
-* `http://127.0.0.1:5000/`
+* [http://localhost:8501/](http://localhost:8501/)
 
 ---
 
@@ -196,8 +186,8 @@ This project is suitable for **Infosys Certification Evaluation** because it dem
 ✅ Understanding of AI chatbot systems
 ✅ Practical implementation of **NLP + AI-based responses**
 ✅ Real-world banking support automation scenario
+✅ Streamlit-based interactive working prototype
 ✅ Expandability using **Transformer-based LLMs**
-✅ Working prototype demonstration
 
 ### Suggested Certification Demonstration Flow
 
@@ -213,7 +203,7 @@ This project is suitable for **Infosys Certification Evaluation** because it dem
 
 🔹 Add voice input/output support (Speech-to-Text & Text-to-Speech)
 🔹 Multi-language support (English + regional languages)
-🔹 Connect to real banking APIs (securely)
+🔹 Connect to real banking APIs securely
 🔹 Add authentication for user-specific queries
 🔹 Improve response quality using advanced retrieval + LLM (RAG)
 
@@ -235,4 +225,4 @@ GitHub: [https://github.com/Lavanya-2009](https://github.com/Lavanya-2009)
 
 ## ⭐ Support
 
-If you found this project useful for learning or certification purposes, please consider giving it a ⭐ on GitHub!
+If you found this project useful for learning or certification purposes, please consider giving it a ⭐ on GitHub! ⭐
